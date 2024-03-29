@@ -17,7 +17,10 @@ def add_events():
         description = input("Enter the description: ")
     # new_Event=Event(name, date, start, end, description)
 def list_all():
-
-    print("List of all events")
+    if len(Events)==0:
+        print("No events")
+    else:
+        for event in Events:
+            event.display()
 def list_events_day():
     print("List of events")

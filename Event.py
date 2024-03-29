@@ -18,3 +18,6 @@ class Event:
             self.end_t=n_end
         self.description=n_description
 
+    def display(self):
+        print(self)
+
