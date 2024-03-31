@@ -21,3 +21,6 @@ class Event:
     def display(self):
         print(self)
 
+    def __str__(self):
+        return f'Event: {self.name}, Date: {self.date}, Start Time: {self.start_t}, End Time: {self.end_t}, Description: {self.description}'
+
