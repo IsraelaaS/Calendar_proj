@@ -17,9 +17,11 @@ def add_events():
         print("End time must be after start time.")
         end= input_time("Enter end time of event (HH:MM): ")
     description=""
-    des_yn = input("Do you want to add a description? Y or N")
+    des_yn = input("Do you want to add a description? Y or N ")
     if des_yn == "Y":
         description = input("Enter the description: ")
+    else:
+        description = "None"
     
     new_Event= Event(name, date, start, end, description)
 
@@ -58,4 +60,9 @@ def input_time(prompt):
         except ValueError:
             print("Invalid time format. Please enter a time in the format 'HH:MM'")
 
-add_events()
+def main():
+    add_events()
+    list_all()
+
+if __name__ == "__main__":
+    main()
