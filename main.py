@@ -16,7 +16,7 @@ def add_events():
     while end <= start:
         print("End time must be after start time.")
         end= input_time("Enter end time of event (HH:MM): ")
-    description=""
+
     des_yn = input("Do you want to add a description? Y or N ")
     if des_yn == "Y":
         description = input("Enter the description: ")
@@ -25,7 +25,11 @@ def add_events():
     
     new_Event= Event(name, date, start, end, description)
 
-    Events.append(new_Event)
+    # Israel
+    # Check for duplicate events will be written here
+    if check_dup(new_Event)==False:
+        Events.append(new_Event)
+
 def list_all():
     if len(Events)==0:
         print("No events")
@@ -59,6 +63,23 @@ def input_time(prompt):
             return datetime.datetime.strptime(time_str, '%H:%M').time()
         except ValueError:
             print("Invalid time format. Please enter a time in the format 'HH:MM'")
+
+# Israel
+# Used to delete events from Event list; should only delete first match
+def delete_event(f_event):
+    for event in Events:
+        if f_event.__eq__(event):
+            Events.remove(event)
+            return print(f_event.name+" has been deleted")
+
+# Israel
+# Method to check duplicate events within Event list
+def check_dup(f_event):
+    for event in Events:
+        if f_event.__eq__(event):
+            print(f_event.name+" is already registered")
+            return True
+
 
 def main():
     add_events()

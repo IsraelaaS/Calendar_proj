@@ -24,3 +24,6 @@ class Event:
     def __str__(self):
         return f'Event: {self.name}\nDate: {self.date}\nStart Time: {self.start_t}\nEnd Time: {self.end_t}\nDescription: {self.description}'
 
+    # Method to be used for deleting events from list in main file
+    def __eq__(self, other):
+        return self.name==other.name and self.date==other.date and self.start_t==other.start_t and self.end_t==other.end_t
