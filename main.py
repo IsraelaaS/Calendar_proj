@@ -5,7 +5,6 @@ import datetime
 Events=[]
 
 
-#
 def add_events():
     name= input("Enter name of event: ")
     date= input_date("Enter date of event (mm/dd/yyyy): ")
@@ -71,6 +70,7 @@ def delete_event(f_event):
         if f_event.__eq__(event):
             Events.remove(event)
             return print(f_event.name+" has been deleted")
+    print()
 
 # Israel
 # Method to check duplicate events within Event list
@@ -79,11 +79,30 @@ def check_dup(f_event):
         if f_event.__eq__(event):
             print(f_event.name+" is already registered")
             return True
+    return False
 
 
 def main():
-    add_events()
-    list_all()
+    # main while loop to reprompt for user input
+    # Carter
+    while True:
+        print("What would you like to do")
+        user_Answer = input("A Add Event | D Delete Event | L List All | E Exit\n")
+
+        if user_Answer == 'A' or user_Answer == 'a':
+            add_events()
+        elif user_Answer == 'D' or  user_Answer == 'd':
+            delete_answer = input("What is the name of the event you want to delete?")
+            delete_event(delete_answer)
+        elif user_Answer == 'L' or  user_Answer == 'l':
+            list_all()
+        elif user_Answer == 'E' or  user_Answer =='e':
+            print("Exiting")
+            break
+        else:
+            print("Invalid input try again")
+
+        
 
 if __name__ == "__main__":
     main()
