@@ -17,7 +17,7 @@ def add_events():
         end= input_time("Enter end time of event (HH:MM): ")
 
     des_yn = input("Do you want to add a description? Y or N ")
-    if des_yn == "Y":
+    if des_yn == "Y" or des_yn == 'y':
         description = input("Enter the description: ")
     else:
         description = "None"
@@ -34,7 +34,8 @@ def list_all():
         print("No events")
     else:
         for event in Events:
-            event.display()
+            print(event)
+            print("\n********************")
 def list_events_day():
     print("List of events")
 
@@ -67,10 +68,10 @@ def input_time(prompt):
 # Used to delete events from Event list; should only delete first match
 def delete_event(f_event):
     for event in Events:
-        if f_event.__eq__(event):
+        if f_event == event.name:
             Events.remove(event)
-            return print(f_event.name+" has been deleted")
-    print()
+            return print(f_event+" has been deleted\n")
+    
 
 # Israel
 # Method to check duplicate events within Event list
