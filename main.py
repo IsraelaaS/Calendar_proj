@@ -29,6 +29,8 @@ def add_events():
     if check_dup(new_Event)==False:
         Events.append(new_Event)
 
+
+# Searches through events
 def list_all():
     if len(Events)==0:
         print("No events")
@@ -36,6 +38,8 @@ def list_all():
         for event in Events:
             print(event)
             print("\n********************")
+
+
 def list_events_day():
     print("List of events")
 
