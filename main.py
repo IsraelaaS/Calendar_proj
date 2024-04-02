@@ -36,8 +36,8 @@ def list_all():
         print("No events")
     else:
         for event in Events:
-            print(event)
-            print("\n********************")
+            event.display()
+            print("\n-----------------")
 
 
 def list_events_day():
