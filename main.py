@@ -1,5 +1,6 @@
 from Event import Event
 import datetime
+import tkinter as tk
 
 # list containing all events
 Events = []
@@ -113,29 +114,74 @@ def edit_event(f_event):
         else:
             print("Event not found")
 
+def gui_add_events(label):
+    name = input("Enter name of event: ")
+    date = input_date("Enter date of event (mm/dd/yyyy): ")
+    start = input_time("Enter start time of event (HH:MM): ")
+    end = input_time("Enter end time of even (HH:MM): ")
+
+    # error check for start time being after end time
+    while end <= start:
+        print("End time must be after start time.")
+        end = input_time("Enter end time of event (HH:MM): ")
+
+    des_yn = input("Do you want to add a description? Y or N ")
+    if des_yn == "Y" or des_yn == 'y':
+        description = input("Enter the description: ")
+    else:
+        description = "None"
+
+    new_Event = Event(name, date, start, end, description)
+
+    # Israel
+    # Check for duplicate events will be written here
+    if check_dup(new_Event) == False:
+        Events.append(new_Event)
+
 
 def main():
     # main while loop to reprompt for user input
     # Carter
-    while True:
-        print("What would you like to do")
-        user_Answer = input("A Add Event | D Delete Event | L List All | E Edit Event | X Exit\n")
 
-        if user_Answer == 'A' or user_Answer == 'a':
-            add_events()
-        elif user_Answer == 'D' or user_Answer == 'd':
-            delete_answer = input("What is the name of the event you want to delete?")
-            delete_event(delete_answer)
-        elif user_Answer == 'L' or user_Answer == 'l':
-            list_all()
-        elif user_Answer == 'E' or user_Answer == 'e':
-            event_find = input("What is the name of the event you want to edit?")
-            edit_event(event_find)
-        elif user_Answer == 'X' or user_Answer == 'x':
-            print("Exiting")
-            break
-        else:
-            print("Invalid input try again")
+    #Setting up main frame
+    root_GUI = tk.Tk()
+    root_GUI.title("Calendar")
+    root_GUI.geometry("1200x800")
+
+    # Two column layout
+    root_GUI.columnconfigure(0, weight=1)  # For the left portion
+    root_GUI.columnconfigure(1, weight=1)  # For the right portion
+    root_GUI.rowconfigure(0, weight=0)
+
+    buttons_frame = tk.LabelFrame(root_GUI, text = "Options", bg = 'lightblue', width = 300, height = 700)
+    buttons_frame.grid(row = 0, column = 1, padx = 10, pady = 10)
+    
+
+    button = tk.Button(buttons_frame, text = 'Add Event', command = lambda: gui_add_events(buttons_frame))
+    button.pack()
+
+
+    root_GUI.mainloop()
+
+    #while True:
+    #    print("What would you like to do")
+    #    user_Answer = input("A Add Event | D Delete Event | L List All | E Edit Event | X Exit\n")
+#
+    #    if user_Answer == 'A' or user_Answer == 'a':
+    #        add_events()
+    #    elif user_Answer == 'D' or user_Answer == 'd':
+    #        delete_answer = input("What is the name of the event you want to delete?")
+    #        delete_event(delete_answer)
+    #    elif user_Answer == 'L' or user_Answer == 'l':
+    #        list_all()
+    #    elif user_Answer == 'E' or user_Answer == 'e':
+    #        event_find = input("What is the name of the event you want to edit?")
+    #        edit_event(event_find)
+    #    elif user_Answer == 'X' or user_Answer == 'x':
+    #        print("Exiting")
+    #        break
+    #    else:
+    #        print("Invalid input try again")
 
 
 if __name__ == "__main__":
