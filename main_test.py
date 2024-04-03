@@ -13,7 +13,7 @@ class TestMain(unittest.TestCase):
 
     @patch('sys.stdout', new_callable=StringIO)
     def test_display(self, mock_stdout):
-        self.event.display()
+        self.event.__str__()
         expected_output = '\nEvent: Testing Event\nDate: 04/02/2024\nStart Time: 01:00:00\nEnd Time: 02:00:00\nDescription: None'   
         self.assertEqual(mock_stdout.getvalue(), expected_output)
         
