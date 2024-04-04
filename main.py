@@ -6,31 +6,6 @@ import tkinter as tk
 Events = []
 
 
-def add_events():
-    name = input("Enter name of event: ")
-    date = input_date("Enter date of event (mm/dd/yyyy): ")
-    start = input_time("Enter start time of event (HH:MM): ")
-    end = input_time("Enter end time of even (HH:MM): ")
-
-    # error check for start time being after end time
-    while end <= start:
-        print("End time must be after start time.")
-        end = input_time("Enter end time of event (HH:MM): ")
-
-    des_yn = input("Do you want to add a description? Y or N ")
-    if des_yn == "Y" or des_yn == 'y':
-        description = input("Enter the description: ")
-    else:
-        description = "None"
-
-    new_Event = Event(name, date, start, end, description)
-
-    # Israel
-    # Check for duplicate events will be written here
-    if check_dup(new_Event) == False:
-        Events.append(new_Event)
-
-
 # Searches through events
 def list_all():
     if len(Events) == 0:
@@ -43,20 +18,6 @@ def list_all():
 
 def list_events_day():
     print("List of events")
-
-
-# Carter
-# Input date prompt
-# loops to retrieve user input in correct xx/xx/xxxx format
-# returns formatted date
-def input_date(prompt):
-    while True:
-        date_str = input(prompt)
-        try:
-            datetime.datetime.strptime(date_str, '%m/%d/%Y')
-            return date_str
-        except ValueError:
-            print("Invalid date format. Please enter a date in the format 'mm/dd/yyyy'")
 
 
 # Carter
@@ -114,29 +75,86 @@ def edit_event(f_event):
         else:
             print("Event not found")
 
-def gui_add_events(label):
-    name = input("Enter name of event: ")
-    date = input_date("Enter date of event (mm/dd/yyyy): ")
-    start = input_time("Enter start time of event (HH:MM): ")
-    end = input_time("Enter end time of even (HH:MM): ")
-
-    # error check for start time being after end time
-    while end <= start:
-        print("End time must be after start time.")
-        end = input_time("Enter end time of event (HH:MM): ")
-
-    des_yn = input("Do you want to add a description? Y or N ")
-    if des_yn == "Y" or des_yn == 'y':
-        description = input("Enter the description: ")
+# Carter
+# takes string and label to write when form is not properly filled
+def validate_name_entry(name_str, name_warning_label):
+    # validating name field to not be empty
+    if name_str.get() != '':
+        name_warning_label.config(text = '')
+        # set to be destroyed
+        return True
     else:
-        description = "None"
+        # prompt reentry of field
+        name_warning_label.config(text = 'Name Field Cannot Be Empty')
+        name_str.set('')
+        return False
+    
+# Carter
+# user input string checked against proper date format
+def validate_date_entry(date_str, date_warning_label):
+    try:
+        datetime.datetime.strptime(date_str.get(), '%m/%d/%Y')
+        date_warning_label.config(text = '')
+        return True
+    except ValueError:
+        date_warning_label.config(text = 'Invalid Date Format. Please Enter A Time In The Correct Format')
+        date_str.set('')
+        return False
 
-    new_Event = Event(name, date, start, end, description)
+# check all fields are complete
+# once done set to destroy
+def submit_form(name_string, name_entry_field, name_warning_label, name_label,
+                date_string, date_entry_field, date_warning_label, date_label,
+                submit_button):
+    
+    # getting boolean 
+    valid_name = validate_name_entry(name_string, name_warning_label)
+    valid_date = validate_date_entry(date_string, date_warning_label)
 
-    # Israel
-    # Check for duplicate events will be written here
-    if check_dup(new_Event) == False:
-        Events.append(new_Event)
+    # all fields completed properly to be destroyed
+    if valid_name and valid_date:
+
+        name_entry_field.destroy()
+        name_label.destroy()
+        name_warning_label.destroy()
+
+        date_entry_field.destroy()
+        date_label.destroy()
+        date_warning_label.destroy()
+
+        submit_button.destroy()
+        
+
+def gui_add_events(label):
+
+
+    # name label field
+    name_label = tk.Label(label, text = 'Name')
+    name_label.pack()
+    name_string = tk.StringVar()
+    name_entry_field = tk.Entry(label, textvariable = name_string)
+    name_entry_field.pack()
+
+    name_warning_label = tk.Label(label, text = '', fg = 'red')
+    name_warning_label.pack()
+
+
+    # date label field
+    date_label = tk.Label(label, text = 'Date: mm/dd/yyyy')
+    date_label.pack()
+    date_string = tk.StringVar()
+    date_entry_field = tk.Entry(label, textvariable = date_string)
+    date_entry_field.pack()
+
+    date_warning_label = tk.Label(label, text = '', fg = 'red')
+    date_warning_label.pack()
+
+    submit_button = tk.Button(label, text = 'Submit', 
+                              # sends all strings and labels, forms to be checked and if checked then destroyed
+                              command = lambda: submit_form(name_string, name_entry_field, name_warning_label, name_label,
+                                                            date_string, date_entry_field, date_warning_label, date_label,
+                                                            submit_button))
+    submit_button.pack()
 
 
 def main():
@@ -151,10 +169,10 @@ def main():
     # Two column layout
     root_GUI.columnconfigure(0, weight=1)  # For the left portion
     root_GUI.columnconfigure(1, weight=1)  # For the right portion
-    root_GUI.rowconfigure(0, weight=0)
+    root_GUI.rowconfigure(0, weight=1)
 
-    buttons_frame = tk.LabelFrame(root_GUI, text = "Options", bg = 'lightblue', width = 300, height = 700)
-    buttons_frame.grid(row = 0, column = 1, padx = 10, pady = 10)
+    buttons_frame = tk.LabelFrame(root_GUI, text = "Options", bg = 'lightblue')
+    buttons_frame.grid(row = 0, column = 1, padx = 10, pady = 10, sticky = 'nsew')
     
 
     button = tk.Button(buttons_frame, text = 'Add Event', command = lambda: gui_add_events(buttons_frame))
@@ -162,26 +180,6 @@ def main():
 
 
     root_GUI.mainloop()
-
-    #while True:
-    #    print("What would you like to do")
-    #    user_Answer = input("A Add Event | D Delete Event | L List All | E Edit Event | X Exit\n")
-#
-    #    if user_Answer == 'A' or user_Answer == 'a':
-    #        add_events()
-    #    elif user_Answer == 'D' or user_Answer == 'd':
-    #        delete_answer = input("What is the name of the event you want to delete?")
-    #        delete_event(delete_answer)
-    #    elif user_Answer == 'L' or user_Answer == 'l':
-    #        list_all()
-    #    elif user_Answer == 'E' or user_Answer == 'e':
-    #        event_find = input("What is the name of the event you want to edit?")
-    #        edit_event(event_find)
-    #    elif user_Answer == 'X' or user_Answer == 'x':
-    #        print("Exiting")
-    #        break
-    #    else:
-    #        print("Invalid input try again")
 
 
 if __name__ == "__main__":
