@@ -2,7 +2,10 @@ class Event:
     def __init__(self, name, date, start_t, end_t, descr):
         self.date=date
         self.name=name
-        self.description=descr
+        if len(descr) == 0:
+            self.description = 'Empty'
+        else:
+            self.description=descr
         self.start_t= start_t
         self.end_t=end_t
 
@@ -27,3 +30,12 @@ class Event:
     # Method to be used for deleting events from list in main file
     def __eq__(self, other):
         return self.name==other.name and self.date==other.date and self.start_t==other.start_t and self.end_t==other.end_t
+    
+    # when dates are equal compare starting time
+    def __lt__(self, other):
+        if self.date != other.date:
+            return self.date < other.date
+        else:
+            return self.start_t < other.start_t
+        
+

@@ -79,7 +79,8 @@ def validate_name_entry(name_str, name_warning_label):
 def validate_date_entry(date_str, date_warning_label):
     try:
         date_warning_label.config(text = '')
-        return datetime.datetime.strptime(date_str.get(), '%m/%d/%Y')
+        date_time = datetime.datetime.strptime(date_str.get(), '%m/%d/%Y')
+        return date_time.date()
     except ValueError:
         date_warning_label.config(text = 'Invalid Date Format. Please Enter A Time In The Correct Format')
         date_str.set('')
@@ -111,6 +112,7 @@ def submit_form(name_string, name_entry_field, name_warning_label, name_label,
                 start_time_string, start_time_entry_field, start_time_warning_label, start_time_label,
                 end_time_string, end_time_entry_field, end_time_warning_label, end_time_label,
                 description_string, description_entry_field, description_label,
+                textbox,
                 submit_button):
     
     # getting boolean 
@@ -149,12 +151,15 @@ def submit_form(name_string, name_entry_field, name_warning_label, name_label,
 
         submit_button.destroy()
 
+        # create event object, add to list and refresh text box
         current_event = Event(valid_name, valid_date, valid_start_time, valid_end_time, description_string.get())
         Events.append(current_event)
-        print(current_event)
+        Events.sort(reverse = True)
+        event_refresh_text(textbox)
         
-
-def gui_add_events(label):
+# puts everything on label to ask for input
+# requires textbox to be able to refresh when form is submitted
+def gui_add_events(label, textbox):
 
 
     # name label field
@@ -215,10 +220,25 @@ def gui_add_events(label):
                                                             date_string, date_entry_field, date_warning_label, date_label,
                                                             start_time_string, start_time_entry_field, start_time_warning_label, start_time_label,
                                                             end_time_string, end_time_entry_field, end_time_warning_label, end_time_label,
-                                                            description_string, description_entry_field, description_label, 
+                                                            description_string, description_entry_field, description_label,
+                                                            textbox,
                                                             submit_button
                                                             ))
     submit_button.pack()
+
+def event_refresh_text(textbox):
+    # clears listbox
+    textbox.delete('1.0', tk.END)
+
+    # check for empty array
+    if len(Events) == 0:
+        textbox.insert(tk.END, 'Event list is empty')
+    else:
+        for i, e in enumerate(Events):
+            textbox.insert(tk.END, str(e))
+            if i != len(Events) - 1: # when an item has another item next it will add a break inbetween
+                textbox.insert(tk.END, '\n\n------------------\n')
+
 
 
 def main():
@@ -230,18 +250,28 @@ def main():
     root_GUI.title("Calendar")
     root_GUI.geometry("1200x800")
 
-    # Two column layout
-    root_GUI.columnconfigure(0, weight=1)  # For the left portion
-    root_GUI.columnconfigure(1, weight=1)  # For the right portion
-    root_GUI.rowconfigure(0, weight=1)
+   
 
-    buttons_frame = tk.LabelFrame(root_GUI, text = "Options", bg = 'lightblue')
-    buttons_frame.grid(row = 0, column = 1, padx = 10, pady = 10, sticky = 'nsew')
+    # primary background that everything is set on
+    main_frame = tk.Frame(root_GUI, bg = 'black')
+    main_frame.pack(fill = 'both', expand = True)
+
+     # Two column layout
+    main_frame.columnconfigure(0, weight=1)  # For the left portion
+    main_frame.columnconfigure(1, weight=1)  # For the right portion
+    main_frame.rowconfigure(0, weight=1)
+
+    event_text_frame = tk.Text(main_frame, bg = 'black', fg = 'white', highlightthickness = 0, font = ("Arial", 12))
+    event_text_frame.grid(row = 0, column = 0, padx = 10, pady = 10, sticky='nsew')
     
+    buttons_frame = tk.LabelFrame(main_frame, text = "Options", bg = 'lightblue')
+    buttons_frame.grid(row = 0, column = 1, padx = 10, pady = 10, sticky = 'nsew')
 
-    button = tk.Button(buttons_frame, text = 'Add Event', command = lambda: gui_add_events(buttons_frame))
+    refresh_events_button = tk.Button(buttons_frame, text = 'Refresh Events', command = lambda: event_refresh_text(event_text_frame))
+    refresh_events_button.pack()
+    
+    button = tk.Button(buttons_frame, text = 'Add Event', command = lambda: gui_add_events(buttons_frame, event_text_frame))
     button.pack()
-
 
     root_GUI.mainloop()
 
