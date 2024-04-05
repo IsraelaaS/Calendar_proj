@@ -110,6 +110,7 @@ def submit_form(name_string, name_entry_field, name_warning_label, name_label,
                 date_string, date_entry_field, date_warning_label, date_label,
                 start_time_string, start_time_entry_field, start_time_warning_label, start_time_label,
                 end_time_string, end_time_entry_field, end_time_warning_label, end_time_label,
+                description_string, description_entry_field, description_label,
                 submit_button):
     
     # getting boolean 
@@ -122,6 +123,7 @@ def submit_form(name_string, name_entry_field, name_warning_label, name_label,
 
     start_end_time_order = compare_time(valid_start_time, valid_end_time, start_time_warning_label)
 
+    
 
     # all fields completed properly to be destroyed
     if valid_name and valid_date and valid_start_time and valid_end_time and start_end_time_order:
@@ -142,9 +144,14 @@ def submit_form(name_string, name_entry_field, name_warning_label, name_label,
         end_time_label.destroy()
         end_time_warning_label.destroy()
 
-        
+        description_entry_field.destroy()
+        description_label.destroy()
 
         submit_button.destroy()
+
+        current_event = Event(valid_name, valid_date, valid_start_time, valid_end_time, description_string.get())
+        Events.append(current_event)
+        print(current_event)
         
 
 def gui_add_events(label):
@@ -158,7 +165,7 @@ def gui_add_events(label):
     name_entry_field.pack()
 
     #name warning label
-    name_warning_label = tk.Label(label, text = '', fg = 'red', bg = 'lightblue')
+    name_warning_label = tk.Label(label, text = '', fg = 'red', bg = 'lightblue')                       
     name_warning_label.pack()
 
 
@@ -200,8 +207,6 @@ def gui_add_events(label):
     description_entry_field = tk.Entry(label, textvariable= description_string)
     description_entry_field.pack()
 
-    description_warning_label = tk.Label(label, text = '', fg = 'red', bg = 'lightblue')
-    description_warning_label.pack()
 
     submit_button = tk.Button(label, text = 'Submit', 
                               # sends all strings and labels, forms to be checked and if checked then destroyed
@@ -210,6 +215,7 @@ def gui_add_events(label):
                                                             date_string, date_entry_field, date_warning_label, date_label,
                                                             start_time_string, start_time_entry_field, start_time_warning_label, start_time_label,
                                                             end_time_string, end_time_entry_field, end_time_warning_label, end_time_label,
+                                                            description_string, description_entry_field, description_label, 
                                                             submit_button
                                                             ))
     submit_button.pack()
