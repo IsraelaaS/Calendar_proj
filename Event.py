@@ -17,10 +17,7 @@ class Event:
         
 
     def date_to_string(self):
-        print(self.date)
-        random = int(self.date.strftime("%m%d%Y"))
-        print(random)
-        return random
+        return int(self.date.strftime("%m%d%Y"))
     
     def __init__(self, name, date, start_t, end_t, descr):
         self.date=date

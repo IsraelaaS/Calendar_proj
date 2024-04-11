@@ -102,7 +102,6 @@ def submit_form(name_string, name_entry_field, name_warning_label, name_label,
 # requires textbox to be able to refresh when form is submitted
 def gui_add_events(label, calendar_visual, add_event_button):
 
-
     # name label field
     name_label = tk.Label(label, text = 'Name', bg = 'lightblue')
     name_label.pack()
@@ -114,7 +113,6 @@ def gui_add_events(label, calendar_visual, add_event_button):
     name_warning_label = tk.Label(label, text = '', fg = 'red', bg = 'lightblue')                       
     name_warning_label.pack()
 
-
     # date label field
     date_label = tk.Label(label, text = 'Date: mm/dd/yyyy', bg = 'lightblue')
     date_label.pack()
@@ -125,8 +123,6 @@ def gui_add_events(label, calendar_visual, add_event_button):
     # date warning label
     date_warning_label = tk.Label(label, text = '', fg = 'red', bg = 'lightblue')
     date_warning_label.pack()
-
-
 
     # start time label
     start_time_label = tk.Label(label, text = 'Start Time HH:MM', bg = 'lightblue')
