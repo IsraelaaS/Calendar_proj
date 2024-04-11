@@ -1,6 +1,7 @@
 from Event import Event
-import datetime
+from datetime import timedelta, datetime
 import tkinter as tk
+
 
 # list containing all events
 Events = []
@@ -79,7 +80,7 @@ def validate_name_entry(name_str, name_warning_label):
 def validate_date_entry(date_str, date_warning_label):
     try:
         date_warning_label.config(text = '')
-        date_time = datetime.datetime.strptime(date_str.get(), '%m/%d/%Y')
+        date_time = datetime.strptime(date_str.get(), '%m/%d/%Y')
         return date_time.date()
     except ValueError:
         date_warning_label.config(text = 'Invalid Date Format. Please Enter A Time In The Correct Format')
@@ -93,7 +94,7 @@ def validate_date_entry(date_str, date_warning_label):
 def validate_time_entry(time_str, time_warning_label):
         try:
             time_warning_label.config(text = '')
-            return datetime.datetime.strptime(time_str.get(), '%H:%M').time()
+            return datetime.strptime(time_str.get(), '%H:%M').time()
         except ValueError:
             time_warning_label.config(text = 'Invalid Date Format')
             time_str.set('')
@@ -113,7 +114,8 @@ def submit_form(name_string, name_entry_field, name_warning_label, name_label,
                 end_time_string, end_time_entry_field, end_time_warning_label, end_time_label,
                 description_string, description_entry_field, description_label,
                 textbox,
-                submit_button):
+                submit_button,
+                add_event_button):
     
     # getting boolean 
     valid_name = validate_name_entry(name_string, name_warning_label)
@@ -156,10 +158,12 @@ def submit_form(name_string, name_entry_field, name_warning_label, name_label,
         Events.append(current_event)
         Events.sort(reverse = True)
         event_refresh_text(textbox)
+        # reenables button once submit is fully submited
+        add_event_button['state'] = 'normal'
         
 # puts everything on label to ask for input
 # requires textbox to be able to refresh when form is submitted
-def gui_add_events(label, textbox):
+def gui_add_events(label, textbox, add_event_button):
 
 
     # name label field
@@ -222,7 +226,8 @@ def gui_add_events(label, textbox):
                                                             end_time_string, end_time_entry_field, end_time_warning_label, end_time_label,
                                                             description_string, description_entry_field, description_label,
                                                             textbox,
-                                                            submit_button
+                                                            submit_button,
+                                                            add_event_button
                                                             ))
     submit_button.pack()
 
@@ -250,8 +255,6 @@ def main():
     root_GUI.title("Calendar")
     root_GUI.geometry("1200x800")
 
-   
-
     # primary background that everything is set on
     main_frame = tk.Frame(root_GUI, bg = 'black')
     main_frame.pack(fill = 'both', expand = True)
@@ -261,17 +264,29 @@ def main():
     main_frame.columnconfigure(1, weight=1)  # For the right portion
     main_frame.rowconfigure(0, weight=1)
 
-    event_text_frame = tk.Text(main_frame, bg = 'black', fg = 'white', highlightthickness = 0, font = ("Arial", 12))
+    event_text_frame = tk.LabelFrame(main_frame, bg = 'black', fg = 'white', highlightthickness = 0, font = ("Arial", 12))
     event_text_frame.grid(row = 0, column = 0, padx = 10, pady = 10, sticky='nsew')
+
+    labels = []
+    for i in range(7):
+        label = tk.Label(event_text_frame, text=str(datetime.now().date() + timedelta(days=i)), width=10, height=2)
+        label.grid(row=0, column=i)
+        labels.append(label)
+
+    
     
     buttons_frame = tk.LabelFrame(main_frame, text = "Options", bg = 'lightblue')
     buttons_frame.grid(row = 0, column = 1, padx = 10, pady = 10, sticky = 'nsew')
 
     refresh_events_button = tk.Button(buttons_frame, text = 'Refresh Events', command = lambda: event_refresh_text(event_text_frame))
     refresh_events_button.pack()
+
+    # called through the button only to reenable the button once adding to events is finished
+    def add_event_and_enable_button():
+        gui_add_events(buttons_frame, event_text_frame, add_event_button) 
     
-    button = tk.Button(buttons_frame, text = 'Add Event', command = lambda: gui_add_events(buttons_frame, event_text_frame))
-    button.pack()
+    add_event_button = tk.Button(buttons_frame, text = 'Add Event', command = lambda: [add_event_button.config(state = 'disabled'), add_event_and_enable_button()])
+    add_event_button.pack()
 
     root_GUI.mainloop()
 
