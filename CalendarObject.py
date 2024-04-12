@@ -12,27 +12,27 @@ class CalendarObject:
         # the list is the events that have that day
         self.events = []
         self.root = CalendarLabel
-        
-        
-        
-        
-        
+
+        self.label = tk.Label(self.root, text = '', bg = 'black', fg = 'white')
+        self.label.config(font=("Helvetica", 16))
+        self.label.pack()
+                
     def add_event(self, event):
         if len(self.events) == 0:
-            calendarObj = calendar_list_container.calendar_date_container(event.date_int, event)
+            calendarObj = calendar_list_container.calendar_date_container(event.date, event)
             self.events.append(calendarObj)
             return
 
         for e in self.events:
-            if event.date_int == e.date_int:
+            if event.date == e.date:
                 e.add_event(event)
                 return
         
-        calendarObj = calendar_list_container.calendar_date_container(event.date_int, event)
+        calendarObj = calendar_list_container.calendar_date_container(event.date, event)
         self.events.append(calendarObj)
 
     def __str__(self):
-        return '******\n'+ '\n'.join(str(date) for date in self.events)
+        return ''.join(str(date) for date in self.events)
     
     def refresh(self):
-        templabel = tk.Label(self.root, text = )
+        self.label.config(text = str(self))

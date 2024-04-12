@@ -1,8 +1,11 @@
 class calendar_date_container:
-    def __init__(self, date_int, event):
+    def __init__(self, date, event):
 
         self.events = []
-        self.date_int = date_int
+        self.date = date
+        # take date to int to store for sorting but 
+        # in all use cases of printing and showing to the user it should be in proper date format
+        self.date_int = int(self.date.strftime("%m%d%Y"))
         self.events.append(event)
 
     
@@ -16,4 +19,4 @@ class calendar_date_container:
         self.events.append(event)
 
     def __str__(self):
-        return f'\n===========\nDate: {self.date_int}, Events: {", ".join(str(e) for e in self.events)}'
+        return f'\nDate: {self.date}, Events: {", ".join(str(e) for e in self.events)}\n-----------'
