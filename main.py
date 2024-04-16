@@ -28,7 +28,6 @@ def add_events():
     # Check for duplicate events will be written here
     if check_dup(new_Event) == False:
         Events.append(new_Event)
-        Events.sort(reverse = True)
 
 
 # Searches through events
@@ -37,7 +36,7 @@ def list_all():
         print("No events")
     else:
         for event in Events:
-            event.__str__()
+            print(event.__str__())
             print("\n********************")
 
 
