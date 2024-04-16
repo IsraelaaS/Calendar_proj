@@ -4,9 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="0ac38c3d-4dff-4bf9-9c95-0b6c18e2318d" name="Changes" comment="event edit method moved and implemented and option added to main method">
+    <list default="true" id="0ac38c3d-4dff-4bf9-9c95-0b6c18e2318d" name="Changes" comment="Fixed list method">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Event.py" beforeDir="false" afterPath="$PROJECT_DIR$/Event.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -68,7 +67,7 @@
       <updated>1711466043299</updated>
       <workItem from="1711466283822" duration="2235000" />
       <workItem from="1711639359636" duration="21575000" />
-      <workItem from="1713283283933" duration="501000" />
+      <workItem from="1713283283933" duration="1435000" />
     </task>
     <task id="LOCAL-00001" summary="Beginning Outline">
       <option name="closed" value="true" />
@@ -110,7 +109,15 @@
       <option name="project" value="LOCAL" />
       <updated>1712080099210</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="Fixed list method">
+      <option name="closed" value="true" />
+      <created>1713283931905</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1713283931905</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -131,7 +138,8 @@
     <MESSAGE value="Beginning Outline" />
     <MESSAGE value="Made delete event method and equivalence method for events.&#10;Also added a check for duplicate events" />
     <MESSAGE value="event edit method moved and implemented and option added to main method" />
-    <option name="LAST_COMMIT_MESSAGE" value="event edit method moved and implemented and option added to main method" />
+    <MESSAGE value="Fixed list method" />
+    <option name="LAST_COMMIT_MESSAGE" value="Fixed list method" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
