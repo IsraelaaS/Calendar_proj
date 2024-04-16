@@ -9,7 +9,7 @@ def add_events():
     name = input("Enter name of event: ")
     date = input_date("Enter date of event (mm/dd/yyyy): ")
     start = input_time("Enter start time of event (HH:MM): ")
-    end = input_time("Enter end time of even (HH:MM): ")
+    end = input_time("Enter end time of event (HH:MM): ")
 
     # error check for start time being after end time
     while end <= start:
