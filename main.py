@@ -110,8 +110,7 @@ def edit_event(f_event):
             if c_description == "Y":
                 event.description = input("Enter new event description: ")
             return print("Changed event name: " + event.name)
-        else:
-            print("Event not found")
+    print("Event not found")
 
 
 def main():
