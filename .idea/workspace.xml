@@ -4,7 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="0ac38c3d-4dff-4bf9-9c95-0b6c18e2318d" name="Changes" comment="Fixed list method">
+    <list default="true" id="0ac38c3d-4dff-4bf9-9c95-0b6c18e2318d" name="Changes" comment="Fixed edit event population">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
     </list>
@@ -67,7 +67,7 @@
       <updated>1711466043299</updated>
       <workItem from="1711466283822" duration="2235000" />
       <workItem from="1711639359636" duration="21575000" />
-      <workItem from="1713283283933" duration="1435000" />
+      <workItem from="1713283283933" duration="7959000" />
     </task>
     <task id="LOCAL-00001" summary="Beginning Outline">
       <option name="closed" value="true" />
@@ -117,7 +117,15 @@
       <option name="project" value="LOCAL" />
       <updated>1713283931905</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="Fixed edit event population">
+      <option name="closed" value="true" />
+      <created>1713284882061</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1713284882061</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -139,7 +147,8 @@
     <MESSAGE value="Made delete event method and equivalence method for events.&#10;Also added a check for duplicate events" />
     <MESSAGE value="event edit method moved and implemented and option added to main method" />
     <MESSAGE value="Fixed list method" />
-    <option name="LAST_COMMIT_MESSAGE" value="Fixed list method" />
+    <MESSAGE value="Fixed edit event population" />
+    <option name="LAST_COMMIT_MESSAGE" value="Fixed edit event population" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -153,6 +162,6 @@
     </breakpoint-manager>
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/Calendar_Proj$main.coverage" NAME="main Coverage Results" MODIFIED="1712114047468" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/Calendar_Proj$main.coverage" NAME="main Coverage Results" MODIFIED="1713318008553" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
 </project>

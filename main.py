@@ -28,6 +28,11 @@ def add_events():
     # Check for duplicate events will be written here
     if check_dup(new_Event) == False:
         Events.append(new_Event)
+# Israel
+# Orders events from earliest to latest in Event list
+def event_sort():
+    for event in Events:
+        print(event)
 
 
 # Searches through events
@@ -39,15 +44,26 @@ def list_all():
             print(event.__str__())
             print("\n********************")
 
-
+# Israel
+# Used to list events for the current day
+# Prints on each line event info
 def list_events_day():
-    print("List of events")
+    print(f"Events for Today :")
+    # print(datetime.date.today().__str__())
+
+    today= f"{datetime.date.today().month.__str__()}/{datetime.date.today().day.__str__()}/{datetime.date.today().year.__str__()}"
+    # today=datetime.datetime.strptime(today, '%m/%d/%Y')
+    # print(today)
+    for event in Events:
+        # print(event.date)
+        if event.date == today:
+            print(event.__str__())
 
 
 # Carter
 # Input date prompt
 # loops to retrieve user input in correct xx/xx/xxxx format
-# returns formatted date
+# returns formatted date as string
 def input_date(prompt):
     while True:
         date_str = input(prompt)
@@ -74,8 +90,9 @@ def input_time(prompt):
 # Israel
 # Used to delete events from Event list; should only delete first match
 def delete_event(f_event):
+    f_event=f_event.lower()
     for event in Events:
-        if f_event == event.name:
+        if f_event == event.name.lower():
             Events.remove(event)
             return print(f_event + " has been deleted\n")
 
@@ -99,7 +116,7 @@ def edit_event(f_event):
                 event.name = input("Enter new event name: ")
             c_date = input("Do you want to change date? Y or N")
             if c_date == "Y":
-                event.date = input("Enter new event date: ")
+                event.date = input_date("Enter new event date: ")
             c_start_time = input("Do you want to change start time? Y or N")
             if c_start_time == "Y":
                 event.start_t = input("Enter new event start time: ")
@@ -118,7 +135,7 @@ def main():
     # Carter
     while True:
         print("What would you like to do")
-        user_Answer = input("A Add Event | D Delete Event | L List All | E Edit Event | X Exit\n")
+        user_Answer = input("A Add Event | D Delete Event | L List All | T List Today's Events | E Edit Event | X Exit\n")
 
         if user_Answer == 'A' or user_Answer == 'a':
             add_events()
@@ -127,6 +144,8 @@ def main():
             delete_event(delete_answer)
         elif user_Answer == 'L' or user_Answer == 'l':
             list_all()
+        elif user_Answer=='T' or user_Answer=='t':
+            list_events_day()
         elif user_Answer == 'E' or user_Answer == 'e':
             event_find = input("What is the name of the event you want to edit?")
             edit_event(event_find)
