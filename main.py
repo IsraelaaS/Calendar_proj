@@ -30,6 +30,7 @@ def add_events():
         Events.append(new_Event)
 # Israel
 # Orders events from earliest to latest in Event list
+# Still in progress
 def event_sort():
     for event in Events:
         print(event)
@@ -40,6 +41,8 @@ def list_all():
     if len(Events) == 0:
         print("No events")
     else:
+        print("Events:")
+        print("\n********************")
         for event in Events:
             print(event.__str__())
             print("\n********************")
@@ -110,22 +113,30 @@ def check_dup(f_event):
 # Israel event editor function
 def edit_event(f_event):
     for event in Events:
-        if f_event == event.name:
-            c_name = input("Do you want to change name? Y or N")
+        if f_event.lower() == event.name.lower():
+            c_name = input("Do you want to change name? Y or N").capitalize()
             if c_name == "Y":
                 event.name = input("Enter new event name: ")
-            c_date = input("Do you want to change date? Y or N")
+
+            c_date = input("Do you want to change date? Y or N").capitalize()
             if c_date == "Y":
                 event.date = input_date("Enter new event date: ")
-            c_start_time = input("Do you want to change start time? Y or N")
+
+            c_start_time = input("Do you want to change start time? Y or N").capitalize()
             if c_start_time == "Y":
-                event.start_t = input("Enter new event start time: ")
-            c_end_time = input("Do you want to change end time? Y or N")
+                event.start_t = input_time("Enter new event start time: ")
+
+            c_end_time = input("Do you want to change end time? Y or N").capitalize()
             if c_end_time == "Y":
-                event.end_t = input("Enter new event end time: ")
-            c_description = input("Do you want to change description? Y or N")
+                event.end_t = input_time("Enter new event end time: ")
+
+                while event.end_t <= event.start_t:
+                    print("End time must be after start time.")
+                    event.end_t = input_time("Enter new event end time: ")
+
+            c_description = input("Do you want to change description? Y or N").capitalize()
             if c_description == "Y":
-                event.description = input("Enter new event description: ")
+                event.description = input("Enter new event description: ").capitalize()
             return print("Changed event name: " + event.name)
     print("Event not found")
 
