@@ -18,5 +18,6 @@ class calendar_date_container:
     def add_event(self,event):
         self.events.append(event)
 
+    # Do not show date as it is handles in the parent class to string
     def __str__(self):
-        return f'\nDate: {self.date}, Events: {", ".join(str(e) for e in self.events)}\n-----------'
+        return f'{", ".join(str(e) for e in self.events)}\n-----------'
