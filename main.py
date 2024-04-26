@@ -28,12 +28,15 @@ def add_events():
     # Check for duplicate events will be written here
     if check_dup(new_Event) == False:
         Events.append(new_Event)
+        print("Event added.")
+        event_sort()
+    else:
+        print("Event already exists.")
 # Israel
 # Orders events from earliest to latest in Event list
 # Still in progress
 def event_sort():
-    for event in Events:
-        print(event)
+    Events.sort(reverse = True)
 
 
 # Searches through events
