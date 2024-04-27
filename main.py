@@ -23,6 +23,7 @@ def add_events():
         description = "None"
 
     new_Event = Event(name, date, start, end, description)
+    event_sort()
 
     # Israel
     # Check for duplicate events will be written here
@@ -36,8 +37,8 @@ def add_events():
 # Orders events from earliest to latest in Event list
 # Still in progress
 def event_sort():
-    Events.sort(reverse = True)
-
+    # Events.sort(reverse = True)
+    Events.sort()
 
 # Searches through events
 def list_all():
@@ -116,7 +117,7 @@ def check_dup(f_event):
 # Israel event editor function
 def edit_event(f_event):
     for event in Events:
-        if f_event.lower() == event.name.lower():
+        if f_event.lower() == event.name.lower()    :
             c_name = input("Do you want to change name? Y or N").capitalize()
             if c_name == "Y":
                 event.name = input("Enter new event name: ")
@@ -140,6 +141,7 @@ def edit_event(f_event):
             c_description = input("Do you want to change description? Y or N").capitalize()
             if c_description == "Y":
                 event.description = input("Enter new event description: ").capitalize()
+            event_sort()
             return print("Changed event name: " + event.name)
     print("Event not found")
 
